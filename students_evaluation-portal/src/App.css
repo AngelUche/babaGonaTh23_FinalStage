@@ -1,0 +1,234 @@
+/* #root {
+  margin: 0 auto;       my Angel Loves GLobal styles hahaha 
+  text-align: center;   my Angel Loves GLobal styles hahaha 
+} */
+.Home-page-wraper {
+  position: relative;
+}
+.home-image-con {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -3;
+  height: 100vh;
+}
+.home-image {
+  object-position: center;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0.5;
+}
+
+.logo-svg {
+  margin: -85px auto;
+  left: 34%;
+}
+
+@media screen and (min-width: 768px) {
+  .logo-svg {
+    left: 39%;
+  }
+  .wrapper h1 {
+    width: 590px;
+    line-height: 1.5;
+    margin: 0 auto;
+    display: flex;
+  }
+  .wrapper h1 {
+    font-size: 40px;
+  }
+  .wrapper p {
+    width: 360px;
+    height: 100px;
+    line-height: 2;
+    margin: 0 auto;
+    display: flex;
+    margin-top: 30px;
+  }
+  .get-started-button {
+    margin-left: -8%;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .logo-svg {
+    left: 40%;
+  }
+}
+/*
+=============== 
+Sidebar
+===============
+*/
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.8rem 1rem;
+  margin-left: -10px;
+}
+
+.close-btn {
+  background: transparent;
+  border-color: transparent;
+  color: black;
+  /* transition: all 2s linear; */
+  cursor: pointer;
+  margin-top: 0.2rem;
+}
+
+.links a {
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+  text-transform: capitalize;
+  padding: 1rem 1.5rem;
+}
+
+.links a:hover {
+  background: rgba(79, 43, 43, 0.2);
+  transition: all 1s linear;
+}
+
+.links a svg {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(170, 169, 170);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  /* row-gap: 1rem; */
+  transition: all 1s linear;
+  /* transform: translate(-100%); */
+}
+
+.show-sidebar {
+  transform: translate(0);
+}
+
+@media screen and (min-width: 780px) {
+  .sidebar {
+    width: 250px;
+  }
+}
+
+/* ======student home page========== */
+.student-image {
+  left: 17.5%;
+  /* z-index: -3; */
+}
+.studenthome-image {
+  object-position: center;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.transitiononhover {
+  transition: all 1s linear;
+}
+/* .transitiononhover:hover {
+  transition: all 1s linear;
+} */
+.QuotesNextSlide{
+  transform: (100%);
+}
+.QuotesLasttSlide {
+  transform: (-100%);
+}
+.QuotesActiveSlide {
+  transform: (0%) !important;
+  opacity: 1 !important;
+}
+
+.QuotesHome{
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  height: 100%;
+  position: absolute;
+  width: 90%;
+  transition: all 0.4s linear;
+}
+.tansition{
+  transition: all 0.3s linear;
+}
+
+
+/* Hide all Scroll bars */
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  display: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  display: none;
+  background: #ffffff;
+}
+
+/* Place holder text styling */
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(110, 109, 109) !important;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: rgb(110, 109, 109) !important;
+  opacity: 1; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: rgb(110, 109, 109) !important;
+  opacity: 1; /* Firefox */
+}
+
+.hollowcut::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translateY(-50%) translateX(-50%);
+  width: 180px;
+  height: 180px;
+  border: 1px solid #1cbf74;
+  border-radius: 100%;
+  -moz-box-shadow: 0px 0px 0px 2000px rgba(43, 45, 44, 0.7);
+  -webkit-box-shadow: 0px 0px 0px 2000px rgba(43, 45, 44, 0.7);
+  box-shadow: 0px 0px 0px 2000px rgba(43, 45, 44, 0.7);
+}

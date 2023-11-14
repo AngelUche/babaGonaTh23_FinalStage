@@ -6,15 +6,19 @@ import { AsideNavigation } from "../../components/admin";
 import { useAppSelector } from "../../hooks";
 import imageProfile from '@/assets/ProfileImage.png'
 
+
+
 function AdminLayout() {
     const { photoURL} = useAppSelector((state)=>state.userAuth)
 
     const [navOpen, setNavOpen] = useState<boolean>(false);
 
 
+
     function toggleNav() {
         setNavOpen(!navOpen);
     }
+
 
 
     return (
@@ -41,7 +45,7 @@ function AdminLayout() {
                 </div>
             </nav>
             {/* both mobile and desktop view side bar */}
-            <div className={`fixed inset-y-0 lg:w-[15rem] mt-[60px] w-[271px] ${!navOpen && "-left-full"}  lg:left-0 z-[50]`}><AsideNavigation /> </div>
+            <div className={`fixed inset-y-0 lg:w-[15rem] mt-[60px] w-[271px] ${!navOpen && "-left-full"}  lg:left-0 z-[20]`}><AsideNavigation /> </div>
            
                 {/* OutLet to render the components */}
              <div className="lg:pl-[15rem] h-[91.5vh] overflow-y-auto  grid grid-rows-1"onClick={() => setNavOpen(false)}>

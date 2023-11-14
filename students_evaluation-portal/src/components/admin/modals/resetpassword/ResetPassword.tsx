@@ -3,24 +3,69 @@ import { useState } from "react";
 import { KeySVG, CancelSVG, CancelFillSVG } from "../../../../assets/admin";
 import { useNavigate } from "react-router-dom";
 
+import { auth } from "../../../../firebase/firebaseAuth";
+import { updatePassword} from "firebase/auth";
+
+
+
+// interface to set the user password
+interface UserPassword{
+    currentPassword:string,
+    newPassword:string,
+    confirmPassword:string
+
+}
 function ResetPasswordModal() {
 
-    const [currentPassword, setCurrentPassword] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [Password, setPassword] = useState<UserPassword>({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: ""
+    });
 
-    // Return a navigator to enable routing
+    // loadng state
+    const [loading, setLoading]= useState(false)
     const navigate = useNavigate();
 
-    function handleFormClose() {
-        navigate("/admin");
-    }
 
-    function handleFormSubmit(e: any) {
-        e.stopPropagation();
-        handleFormClose();
-        alert("Password sucessfully changed");
+    function handleFormClose() {
+        navigate("/home");
     }
+    
+    function handleFormSubmit(e: React.FormEvent) {
+        e.preventDefault();
+        // Check if the password matches
+        if (Password.newPassword !== Password.confirmPassword) {
+          alert("Passwords do not match");
+          // Exit the function early if passwords don't match
+          return; 
+        }
+      
+        const user = auth.currentUser;
+        if (user) {
+            // Start the loading 
+          setLoading(true); 
+      
+          //  update the user's password
+          updatePassword(user, Password.newPassword)
+            .then(() => {
+              alert("Password successfully changed");
+              // Redirect to the login page on success
+              navigate("/login"); 
+            })
+            .catch((error) => {
+              alert("Failed to update password: " + error.message);
+            })
+            .finally(() => {
+                // Stop the loading state, regardless of success or failure
+              setLoading(false); 
+            });
+        } else {
+          alert("User not authenticated. Please sign in.");
+        }
+      }
+      
+    
 
     return (
         <>
@@ -42,11 +87,12 @@ function ResetPasswordModal() {
                         <input
                             type="password"
                             id="currentPassword"
-                            value={currentPassword}
+                            value={Password.currentPassword}
                             required
                             className={"p-3 w-full outline-none selection:shadow-inner rounded-[4px] border-[1px] border-[#1e462a59] focus-visible:shadow-md"}
-                            onClick={((e: any) => setCurrentPassword(e.target.value))}
-                        />
+                            // onChange={((e: any) => setPassword({...passwaord, currentPassword:e.target.value}))}
+                            onChange={(e) => setPassword((prevPassword) => ({...prevPassword,currentPassword: e.target.value,}))}
+                            />
                     </div>
 
                     <div className="flex flex-col gap-y-1">
@@ -54,9 +100,9 @@ function ResetPasswordModal() {
                         <input
                             type="password"
                             id="newPassword"
-                            value={newPassword}
+                            value={Password.newPassword}
                             required
-                            onClick={((e: any) => setNewPassword(e.target.value))}
+                            onChange={(e) => setPassword((prevPassword) => ({...prevPassword,newPassword: e.target.value,}))}
                             className={"p-3 w-full outline-none selection:shadow-inner rounded-[4px] border-[1px] border-[#1e462a59]  focus-visible:shadow-md"} />
                     </div>
 
@@ -65,15 +111,15 @@ function ResetPasswordModal() {
                         <input
                             type="password"
                             id="confirmPassword"
-                            value={confirmPassword}
+                            value={Password.confirmPassword}
                             required
-                            onClick={((e: any) => setConfirmPassword(e.target.value))}
+                            onChange={(e) => setPassword((prevPassword) => ({...prevPassword,confirmPassword: e.target.value,}))}
                             className={"p-3 w-full outline-none selection:shadow-inner rounded-[4px] border-[1px] border-[#1e462a59]  focus-visible:shadow-md"} />
                     </div>
 
                     {/* Submit buttons */}
                     <div className="mt-[1rem]">
-                        <button type="submit" className="p-1 py-4 w-full mt-3 font-bold rounded bg-[#038f4d] text-white hover:bg-[#055c32]" >Submit</button>
+                        <button type="submit" className="p-1 py-4 w-full mt-3 font-bold rounded bg-[#038f4d] text-white hover:bg-[#055c32]" >{loading?"loading...":"Submit"}</button>
                     </div>
                 </form>
 

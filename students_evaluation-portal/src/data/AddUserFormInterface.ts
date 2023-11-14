@@ -12,7 +12,7 @@ export interface UserProfileInterface {
   email?: string | undefined;
   docId: string;
   gender: string;
-  imageURL: any | null;
+  // imageURL: any | null;
 }
 
 export const initialUser: UserProfileInterface = {
@@ -29,6 +29,15 @@ export const initialUser: UserProfileInterface = {
   gender: "",
   image: "",
   faculty: "",
-  imageURL:""
+  // imageURL:""
 
 };
+
+export interface EditProfileInterface{
+  photoURL:string,
+  otherName: string;
+  firstName: string;
+  lastName: string;
+  age:number,
+  email:string
+}

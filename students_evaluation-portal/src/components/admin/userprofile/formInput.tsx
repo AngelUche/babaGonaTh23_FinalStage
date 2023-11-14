@@ -13,7 +13,7 @@ function FormInput({ id, type, label, editProfileStatus, value, onChange }: Form
     return (
         <div className="flex flex-col">
             <label className="text-sm font-bold text-gray-700" htmlFor={id}>{label}</label>
-            <input className={`p-2 text-gray-700 text-[14px] rounded-sm  capitalize ${editProfileStatus ? 
+            <input className={`p-2 text-gray-700 text-[14px] rounded-sm  ${editProfileStatus ? 
                 "border-[1px] border-gray-300 bg-editFormFieldBg focus:border-blue-500 outline-none" : "bg-formFieldBg"} `} 
                 type={type} id={id} value={value} disabled={!editProfileStatus} onChange={onChange} />
         </div>

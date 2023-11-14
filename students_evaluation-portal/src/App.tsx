@@ -9,7 +9,7 @@ import { UserProfileView } from "./views/admin";
 import { Home, UserProfilePage,  PasswordReset, AddUserPage } from "./pages/admin/subroutes/";
 import {
   // AdminPage,
-  ErrorPage,
+  ErrorPage,EditProfilePage
 } from "./pages";
 
 function App() {
@@ -30,7 +30,8 @@ function App() {
           <Route path="userprofile" element={<UserProfilePage />} />
           <Route path="userprofile/:id" element={<UserProfileView />} />
           <Route path="adduser" element={<AddUserPage />} />
-          <Route path="passwordreset" element={<PasswordReset />} />
+          <Route path="resetpassword" element={<PasswordReset />} />
+          <Route path="setting" element={<EditProfilePage />} />
         </Route>
       </Route>
       <Route path="*" element={<ErrorPage to="/login" />} />

@@ -9,13 +9,16 @@ import { useAppDispatch } from "../../../hooks/redux"
 import {AiFillHome} from 'react-icons/ai'
 import {FaSignOutAlt} from 'react-icons/fa'
 import { SignOut } from "../../login/SignOut"
-import { useState } from "react"
-
+import { useState, useEffect } from "react"
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../../firebase/firebaseAuth"
 
 
 function AsideNavigation() {
 
        const [openSignOut, setOpenSignOut] =useState(false)
+    const [signInedWIth, setSignedInWith] = useState<string|null>("");
+
 
   
 
@@ -23,10 +26,25 @@ function AsideNavigation() {
 
     // Close all modals upon any click on the side navigation bar
     function handleCloseAllModalsClick() {
-        dispatch(toggleShowUserPreview({ status: false, id: undefined }));
+        dispatch(toggleShowUserPreview({ status: false,  }));
         dispatch(toggleShowUserProfile({ status: true, id: undefined }));
         dispatch(toggleAddUserPromptStatus({ status: true, type: undefined }));
     }
+
+
+
+       // to get how individual signed in
+       useEffect(() => {
+        const listen = onAuthStateChanged(auth, (user) => {
+            
+          if (user?.providerData[0].providerId === "password") {
+            setSignedInWith(user?.providerData[0].providerId );
+          }
+        });
+        return () => {
+          listen();
+        };
+      }, []);
 
     return (
         <>
@@ -48,21 +66,14 @@ function AsideNavigation() {
                         <AddUserSVG />
                         <span className="text-xl">Add User</span>
                     </NavLink>
-                    {/* <NavLink to="viewresult"
-                        className={({ isActive }) => `p-4 pl-5 text-white flex justify-start items-center gap-5 hover:border-l-4 ${isActive ? "bg-sideNavbg px-5 border-l-4" : undefined}`}>
-                        <ResultSVG />
-                        <span className="text-xl">View Results</span>
-                    </NavLink> */}
-                    {/* <NavLink to="broadcastmail"
-                        className={({ isActive }) => `p-4 pl-5 text-white flex justify-start items-center gap-5 hover:border-l-4 ${isActive ? "bg-sideNavbg px-5 border-l-4" : undefined}`}>
-                        <MailSVG />
-                        <span className="text-xl">Broadcast Mail</span>
-                    </NavLink> */}
+                
+                    {signInedWIth &&
                     <NavLink to="passwordreset"
-                        className={({ isActive }) => `p-4 pl-5 text-white flex justify-start items-center gap-5 hover:border-l-4 ${isActive ? "bg-sideNavbg px-5 border-l-4" : undefined}`}>
+                    className={({ isActive }) => `p-4 pl-5 text-white flex justify-start items-center gap-5 hover:border-l-4 ${isActive ? "bg-sideNavbg px-5 border-l-4" : undefined}`}>
                         <KeySVG size={25} />
                         <span className="text-xl">Reset Password</span>
                     </NavLink>
+                    }
                     <NavLink to="setting"
                         className={({ isActive }) => `p-4 pl-5 text-white flex justify-start items-center gap-5 hover:border-l-4 ${isActive ? "bg-sideNavbg px-5 border-l-4" : undefined}`}>
                         <AiFillHome size={25} />

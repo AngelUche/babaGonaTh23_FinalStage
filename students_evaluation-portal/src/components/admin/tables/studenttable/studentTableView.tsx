@@ -29,7 +29,7 @@ function StudentTableView({ Users,searchQuery, handleItemClick }: StudTableViewP
                         <th className=" font-medium text-left"><span>Firstname</span></th>
                         <th className="hidden sm:table-cell  font-medium text-left ">Lastname</th>
                         <th className=" font-medium text-left ">ID</th>
-                        <th className="hidden xs:table-cell font-medium text-center ">Class</th>
+                        <th className="hidden xs:table-cell font-medium text-center ">Faculty</th>
                         <th className="hidden lg:table-cell  font-medium text-center ">Age</th>
                         <th className="hidden lg:table-cell  font-medium text-left">Gender</th>
                     </tr>
@@ -54,7 +54,7 @@ function StudentTableView({ Users,searchQuery, handleItemClick }: StudTableViewP
                         .map((user, index: number) => {
                             return (
                                 <tr key={user.studentId} className="cursor-pointer [&>*:last-child]:hover:text-gray-600 text-[#575656]  text-[17px] font-mono [&>*]:p-3" 
-                               
+                               onClick={()=>console.log("clicked", index)}
                                 >
                                     <td className="inline-block w-full truncate "><span>{ index +1}</span></td>
                                     <td className="w-full h-full truncate capitalize"><span>{user.firstName}</span></td>

@@ -1,11 +1,13 @@
 // jshint esversion:6
 import { useState } from "react";
 import { PersonvcardSVG } from "../../../../assets/admin";
-import {  useAppSelector } from "../../../../hooks/redux";
 import { Link } from "react-router-dom";
+import { useFetchDatabase } from "../../../../hooks/firebase/useFetchDatabase";
 
 function UserProfileModal() {
-  const { studentData } = useAppSelector(state => state.userAuth);
+
+  // getting the user data
+  const { studentData} = useFetchDatabase()
 
   // Determine type of user to view profile
   const [selectedPosition, setSelectedPosition] = useState("");
@@ -43,7 +45,7 @@ function UserProfileModal() {
               setSlectedMember("");
             }}
           >
-            <option value="" disabled>Select User Position</option>
+            {/* <option value="" disabled>Select User</option> */}
             <option value="Student">Student</option>
             {/* Add more options here if needed in the future */}
           </select>

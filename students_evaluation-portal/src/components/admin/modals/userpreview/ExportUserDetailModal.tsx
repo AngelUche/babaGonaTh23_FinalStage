@@ -5,7 +5,7 @@ import {RxCross2} from 'react-icons/rx'
 import { downloadExcel } from '../../../../utils/getExcelFilex'
 import { useFetchDatabase } from '../../../../hooks/firebase/useFetchDatabase'
 import { useEffect, useState } from 'react'
-import { downLoadPdf } from '../../../../utils/getPdfDpwanload'
+import { downloadPdf } from '../../../../utils/getPdfDpwanload'
 
 interface exportProps{
   onClose:()=>void
@@ -43,7 +43,7 @@ export const ExportUserDetailModal = ({onClose}:exportProps) => {
       }, 3000)
       return
     }
-    downLoadPdf(studentData);
+    downloadPdf(studentData);
     onClose()
   };
 

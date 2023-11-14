@@ -19,7 +19,6 @@ export const useFetchDatabase = () => {
           snapshot.docs.forEach((doc) => {
             const userData: UserProfileInterface = {
               docId: doc.id,
-              // Other fields you want to extract from the document
               ...doc.data(),
             };
 

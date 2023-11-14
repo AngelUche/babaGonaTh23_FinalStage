@@ -1,23 +1,45 @@
 // jshint esversion:6
 import { useState} from "react";
 import { PersonvcardSVG } from "../../../../assets/admin";
-import { classData } from "../../../../data/studentData";
+import { classData, DepartmentInterface } from "../../../../data/studentData";
+import { AdminPin } from "../resetpassword/AdminPin";
+import { Modal } from "../Modal";
 
 import { toggleAddUserPromptStatus } from "../../../../features/admin/adduserSlice";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
+import { useAppDispatch } from "../../../../hooks/redux";
+import { getDepartmentsForFaculty } from "../../../../utils/getUserDepartment";
+import {  } from "../../../../data/studentData";
+
+interface ChosenClasses{
+    faculty:string,
+    department:string,
+}
 
 function AddUserModal() {
-    const {studentData} = useAppSelector(state=>state.userAuth)
+    // const {studentData} = useAppSelector(state=>state.userAuth)
 
+    const [isOpenPINForm, setIsOpenPINForm]=useState<boolean>(false)
+    const [facultId, setFacultyId] = useState<DepartmentInterface[]>([])
+    
+
+    
 
     const dispatch = useAppDispatch();
 
     // Determine type of user to view profile
-    const [selectedPosition, setSelectedPosition] = useState("");
+    const [selectedPosition, setSelectedPosition] = useState<ChosenClasses>({
+    faculty:"",
+    department:"",
+    });
 
     // Add New User upon submit
     function handleProfileSubmit() {
-        dispatch(toggleAddUserPromptStatus({ status: false, type: selectedPosition }))
+        setIsOpenPINForm(true)
+        
+    }
+    
+    function OpeneditFoem(){
+        dispatch(toggleAddUserPromptStatus({ status: false, faculty: selectedPosition.faculty, department:selectedPosition.department }))
     }
 
     return (
@@ -39,9 +61,12 @@ function AddUserModal() {
                         <select
                             className="w-full p-3 rounded outline-none text-gray-700 focus:border-2 focus:border-[#0bdf8d]"
                             aria-label="Select a list of class names to get available students"
-                            value={selectedPosition}
+                            value={selectedPosition.faculty}
                             onChange={(event) => {
-                                setSelectedPosition(event.target.value);
+                                setSelectedPosition((prevState) => ({
+                                    ...prevState,
+                                    faculty: event.target.value
+                                }));
                             }}
                         >
                             <option value="" disabled>Select Faculty</option>
@@ -49,7 +74,12 @@ function AddUserModal() {
                             {
                                 classData.map((positionData) => {
                                     return (
-                                        <option key={positionData.id} value={positionData.faculty}>
+                                        <option key={positionData.id} value={positionData.faculty} onClick={()=>{
+                                            const depts=getDepartmentsForFaculty(positionData.id)
+                                            setFacultyId(depts)
+                                        }
+                                            }
+                                            >
                                             {positionData.faculty}
                                         </option>
                                     );
@@ -59,9 +89,40 @@ function AddUserModal() {
 
                         </select>
                     </div>
+                      {facultId.length !=0 && <div>
+                       <select
+                            className="w-full p-3 rounded outline-none text-gray-700 focus:border-2 focus:border-[#0bdf8d]"
+                            aria-label="Select a list of class names to get available students"
+                            // value={selectedPosition}
+                            onChange={(event) => {
+                                setSelectedPosition((prevState) => ({
+                                    ...prevState,
+                                    department: event.target.value
+                                }));
+                            }}
+                        >
+                            <option value="" disabled>Select Department</option>
+                            {
+                                facultId.map((positionData) => {
+                                    return (
+                                        <option key={positionData.id} value={positionData.dpt} 
+                                            >
+                                            {positionData.dpt}
+                                        </option>
+                                    );
+                                })
+
+                            }
+                        </select>
+                      </div>
+                        }
                 </div>
-                <button className="w-full rounded uppercase py-3 bg-[blue] hover:bg-[#0202c5] hover:shadow-xl text-white font-mono font-bold" onClick={handleProfileSubmit} disabled={selectedPosition == ""}>Add New User</button>
+                <button className="w-full rounded uppercase py-3 bg-[blue] hover:bg-[#0202c5] hover:shadow-xl text-white font-mono font-bold" onClick={handleProfileSubmit}
+                 disabled={selectedPosition .department== ""}>{"Add New User"}</button>
             </div>
+           
+        {isOpenPINForm && <Modal closeModal={()=>setIsOpenPINForm(false)}> <AdminPin ProcceToADD={OpeneditFoem} title="Proceed"/></Modal>}
+
         </>
     );
 }

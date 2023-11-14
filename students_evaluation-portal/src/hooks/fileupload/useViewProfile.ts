@@ -28,11 +28,11 @@ export const useViewProfile = ({ id }: useViewProfileProps) => {
   const [isLoading, setIslaoding] =useState(false)
 
   const fetchUserProfile = async () => {
+    setIslaoding(true)
     if (id) {
       const docRef = doc(fireStoreTxtData, 'user Data', id);
   
       try {
-        setIslaoding(true)
         const docSnap = await getDoc(docRef);
   
         if (docSnap.exists()) {

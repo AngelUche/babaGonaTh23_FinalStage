@@ -3,8 +3,8 @@ import { FirebaseImageData,fireStoreTxtData } from "../../firebase/firebaseStora
 import { UserProfileInterface, initialUser } from "../../data/AddUserFormInterface";
 import { uid } from 'uid';
 import { addDoc, collection } from "firebase/firestore";
-// import { UserProfileInterface, } from "../../../data/AddUserFormInterface";
 import { useState } from "react";
+
 
 
 
@@ -50,6 +50,7 @@ export function useAdduserDetails(){
 
         // setting the data base collection 
         const DataValue =collection(fireStoreTxtData, "user Data")
+        
         await addDoc(DataValue, 
             {firstName:currentUser.firstName, lastName:currentUser.lastName, 
                 otherName:currentUser.otherName, faculty:selectedClass,studentId:uid(),

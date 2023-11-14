@@ -4,13 +4,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 // Create the interface for the state
 interface AddUserType {
     status: boolean
-    type: string | undefined
+    faculty: string | undefined
+    department: string | undefined
 }
 
 // Define the initial state
 const initialState: AddUserType = {
     status: false,
-    type: undefined
+    faculty: undefined,
+    department:undefined,
 }
 
 // Create the slice
@@ -21,7 +23,8 @@ const addUserSlice = createSlice({
         toggleAddUserPromptStatus: (state, action: PayloadAction<AddUserType>) => {
             const { payload } = action
             state.status = payload.status
-            state.type = payload.type
+            state.faculty = payload.faculty
+            state.department = payload.department
         }
     }
 })

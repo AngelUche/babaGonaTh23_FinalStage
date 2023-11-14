@@ -1,6 +1,11 @@
+// import { useState } from "react";
 import { UserProfileInterface } from "../../../data/AddUserFormInterface";
 
 import { classData } from "../../../data/studentData";
+import { useAppSelector } from "../../../hooks";
+// import { getUserClass } from "../../../utils/getUserClass";
+
+
 
 
 interface AddUserViewProps {
@@ -12,6 +17,10 @@ interface AddUserViewProps {
   selectedClass:string;
 }
 export const AddUserForm = ({currentUser, setCurrentUser, setSelectedClass,setSelectedGender, selectedClass, selectedGender}:AddUserViewProps) => {
+const {faculty,department} = useAppSelector((state)=>state.addUser)
+
+    // const [selected, setSelected] =useState(true)    
+
   return (
     <div>
                         {/* Form fields */}
@@ -143,7 +152,7 @@ export const AddUserForm = ({currentUser, setCurrentUser, setSelectedClass,setSe
                             </div>
 
                             {/* Position, Gender, Class? */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                                 {/* Position */}
                                 <div className="flex flex-col basis-full">
                                     <label className="text-sm font-bold text-gray-700"htmlFor="position">Age</label>
@@ -181,33 +190,48 @@ export const AddUserForm = ({currentUser, setCurrentUser, setSelectedClass,setSe
                                     </select>
                                 </div>
 
+            </div>
+                {/* , Class? */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                               
                                {/* Designation */}
-                               <div>
-                                    <label className="text-sm font-bold text-gray-700" htmlFor="designation">Faculty</label>
-                                    <select
-                                        className="w-full p-[10px] text-[14px] rounded-sm outline-none text-gray-700 bg-editFormFieldBg border-[1px] border-gray-300 focus:border-blue-500"
-                                        aria-label="Select a list of class names to get available students"
-                                        value={selectedClass}
-                                        required
-                                        onChange={(e) => {
-                                            setSelectedClass(e.target.value);
-                                        }}
-                                        // to disable select when it's not empty
-                                        // disabled={selectedClass !== ""} 
-                                    >
-                                        <option value="" disabled={!selectedClass}>Select Faculty</option>
-                                        {classData.map((classData) => {
-                                            return (
-                                                <option key={classData.id} value={classData.faculty}>
-                                                    {classData.faculty}
-                                                    {/* {currentUser?.position} */}
-                                                </option>
-                                            );
-                                        })}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                    <div className="relative">
+                        <label className="text-sm font-bold text-gray-700" htmlFor="designation">Faculty</label>
+                        {/* {selected &&<div className="w-full h-[40px] opacity-0  absolute bg-red-400" onClick={()=>setSelected(false)}></div>} */}
+                        <select
+                            className="w-full p-[10px] text-[14px] rounded-sm outline-none text-gray-700 bg-editFormFieldBg border-[1px] border-gray-300 focus:border-blue-500"
+                            aria-label="Select a list of class names to get available students"
+                            value={selectedClass}
+                            required
+                            disabled={faculty!=""}
+                            onChange={(e) => {setSelectedClass(e.target.value);}}> 
+                            <option disabled>Select Faculty</option>
+                            {classData.map((classData) => {
+                            return (
+                            <option key={classData.id} value={faculty} >{classData.faculty}</option>
+                            );
+                            })}
+                        </select>
+                    </div>
+                    <div className="relative">
+                        <label className="text-sm font-bold text-gray-700" htmlFor="designation">Department</label>
+                        <select
+                            className="w-full p-[10px] text-[14px] rounded-sm outline-none text-gray-700 bg-editFormFieldBg border-[1px] border-gray-300 focus:border-blue-500"
+                            aria-label="Select a list of class names to get available students"
+                            // value={selectedClass}
+                            required
+                             disabled={department!=""}
+                            onChange={(e) => {setSelectedClass(e.target.value);}}> 
+                            <option disabled>Select Department</option>
+                            {classData.map((classData) => {
+                            return (
+                            <option key={classData.id} value={department} >{department}</option>
+                            );
+                            })}
+                        </select>
+                    </div>
+            </div>
+         </div>
     </div>
   )
 }

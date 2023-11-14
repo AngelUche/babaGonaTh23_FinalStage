@@ -11,9 +11,9 @@ import { useAdduserDetails } from "../../../hooks/fileupload/useAddUserDetails";
 import { CustomWebcam } from "./CustomeWebCam";
 
 
-type WebcamProp = {
-    setImageURL: (imgSrc: any | null) => void
-}
+// type WebcamProp = {
+//     setImageURL: (imgSrc: any | null) => void
+// }
 
 
 function AddUserView() {
@@ -27,7 +27,7 @@ function AddUserView() {
  
     function handleOpenAddUserModal() {
         // toggleAddUserPromptStatus({ status: true, type: undefined });
-        dispatch(toggleAddUserPromptStatus({ status: true, type: undefined }))
+        dispatch(toggleAddUserPromptStatus({ status: true, faculty: undefined, department: undefined }))
     }
 
 

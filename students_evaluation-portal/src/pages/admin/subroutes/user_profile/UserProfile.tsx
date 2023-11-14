@@ -1,6 +1,5 @@
 // jshint esversion:6
 import { UserProfileModal } from "../../../../components/admin/modals";
-import { UserProfileView } from "../../../../views/admin";
 import { useSelector } from "react-redux";
 import { RootState} from "../../../../store/admin";
 
@@ -20,10 +19,7 @@ function UserProfilePage() {
                 </div>
             {/* )} */}
 
-            {/* Render nothing if no id is gotten */}
-            {/* {
-                UserId == undefined ? null : <UserProfileView />
-            } */}
+          
         </div>
     );
 }

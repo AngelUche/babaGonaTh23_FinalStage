@@ -6,9 +6,10 @@ import {ImCancelCircle} from 'react-icons/im'
 type CustomWebcamProp = {
     closeModal: () => void
     setImageURL: (imgSrc: any | null) => void
+    setProfileImage:any
 }
 
-export const CustomWebcam: React.FC<CustomWebcamProp> = ({ closeModal, setImageURL }) => {
+export const CustomWebcam: React.FC<Partial<CustomWebcamProp>> = ({ closeModal, setImageURL,setProfileImage }) => {
     const webcamRef = useRef<Webcam>(null);
     
     const [imgSrc, setImgSrc] = useState<any | null>(null);
@@ -31,19 +32,22 @@ export const CustomWebcam: React.FC<CustomWebcamProp> = ({ closeModal, setImageU
 
     // Save image
     const saveImage = () => {
-        setImageURL(imgSrc)
-        closeModal()
+        if (setImageURL) {
+            setImageURL(imgSrc);
+        }
+        
+        if (closeModal) {
+            closeModal();
+        }
+    
+        if (setProfileImage) {
+            setProfileImage();
+        }
     }
     
 
     function urltoFile(url: string, filename: string,) {
-        // Get the Base 64 string
-      //   const base64 = url.replace("data:image/png;base64,", "");
-      // console.log(base64);
-      
-        // Create a byte array
-        // const byteArray = new Uint8Array(atob(byteString).split("").map((char) => char.charCodeAt(0)));
-        // console.log(byteArray);
+     
 
         const byteString = atob(url.split(',')[1]);
         const arrayBuffer = new ArrayBuffer(byteString.length);

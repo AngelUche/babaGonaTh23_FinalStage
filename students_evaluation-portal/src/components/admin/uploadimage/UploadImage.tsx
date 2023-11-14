@@ -10,15 +10,6 @@ interface UploadImageProps {
 
 function UploadImage ({imageURL}:UploadImageProps) {
 
-    // Hold the Image preview
-    // const [previewImage, setPreviewImage] = useState<string>(defaultAvatar)
-
-    // Submit Image
-    // function handleImageFileUpload(event: any) {
-    //     setPreviewImage(URL.createObjectURL(event.target.files[0]));
-    //     submitImage(event);
-    // }
-
     return (
         <div className="relative w-full h-full">
             <img className="w-full h-full" src={imageURL.preview?imageURL.preview :defaultAvatar} alt='' />

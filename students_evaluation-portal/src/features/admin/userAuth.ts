@@ -1,33 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
+import { UserProfileInterface } from "../../data/AddUserFormInterface";
 
 type AuthStateType = {
   displayName: string | null;
   photoURL: string | null | undefined;
   email: string | null | undefined;
-
+  studentData:UserProfileInterface[]
   
-  studentData: {
-    faculty: string;
-    otherName: string;
-    phoneNumber: string;
-    age: number | undefined;
-    image: string;
-    studentId: string;
-    firstName: string;
-    address: string;
-    lastName: string;
-    email?: string | undefined;
-    docId?: string;
-    gender: string;
-  }[];
 };
 
 const initialState: AuthStateType = {
   displayName: null,
   photoURL: null,
   email: "",
-  studentData: [], // Initialize as an empty array
+  studentData:[]
 };
 
 

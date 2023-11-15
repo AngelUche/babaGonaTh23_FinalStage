@@ -26,8 +26,9 @@ function AddUserView() {
     const [isWebcamOpen, setIsWebcamOpen] = useState<boolean>(false);
  
     function handleOpenAddUserModal() {
+
         // toggleAddUserPromptStatus({ status: true, type: undefined });
-        dispatch(toggleAddUserPromptStatus({ status: true, faculty: undefined, department: undefined }))
+        dispatch(toggleAddUserPromptStatus({ status: true, faculty: "", department: "" }))
     }
 
 
@@ -38,6 +39,9 @@ function AddUserView() {
   }
 
 
+  
+
+
 
     // function handleImageFileUpload(event: any) {
     //     setImageURL(URL.createObjectURL(event.target.files[0]));
@@ -45,7 +49,8 @@ function AddUserView() {
 
     return (
      <>
-     <form className="max-w-[900px] mx-auto mt-6 px-6 py-[30px]" onSubmit={submitEditedProfile}>
+      <div className="w-full h-full flx justify-center items-center bg-cover bg-no-repeat bg-center bg-signUpBgImg">
+     <form className="max-w-[900px] mx-auto mt-6 px-6 py-[30px] " onSubmit={submitEditedProfile}>
           {/* Form container */}
        <div className="relative shadow-md py-5 px-4 bg-[#ffffff]">
           {/* Cancel button */}
@@ -86,6 +91,7 @@ function AddUserView() {
                     </button>
                 </div>
             </form>
+          </div>
         </>
     );
 }

@@ -201,14 +201,15 @@ const {faculty,department} = useAppSelector((state)=>state.addUser)
                         <select
                             className="w-full p-[10px] text-[14px] rounded-sm outline-none text-gray-700 bg-editFormFieldBg border-[1px] border-gray-300 focus:border-blue-500"
                             aria-label="Select a list of class names to get available students"
-                            value={selectedClass}
+                            // value={selectedClass}
+                            value={department!==""?department :selectedClass}
                             required
                             disabled={faculty!=""}
                             onChange={(e) => {setSelectedClass(e.target.value);}}> 
                             <option disabled>Select Faculty</option>
                             {classData.map((classData) => {
                             return (
-                            <option key={classData.id} value={faculty} >{classData.faculty}</option>
+                            <option key={classData.id} value={department!==""?department :selectedClass} >{faculty !=""?faculty:classData.faculty}</option>
                             );
                             })}
                         </select>
@@ -219,13 +220,22 @@ const {faculty,department} = useAppSelector((state)=>state.addUser)
                             className="w-full p-[10px] text-[14px] rounded-sm outline-none text-gray-700 bg-editFormFieldBg border-[1px] border-gray-300 focus:border-blue-500"
                             aria-label="Select a list of class names to get available students"
                             // value={selectedClass}
+                            value={department!==""?department :selectedClass}
                             required
                              disabled={department!=""}
-                            onChange={(e) => {setSelectedClass(e.target.value);}}> 
+                            onChange={(e) => {
+                                // check to see if the department field is empty 
+                                if(department===""){
+                                    setSelectedClass(e.target.value);
+                                }else{
+
+                                    setSelectedClass(department)
+                                }
+                                }}> 
                             <option disabled>Select Department</option>
                             {classData.map((classData) => {
                             return (
-                            <option key={classData.id} value={department} >{department}</option>
+                            <option key={classData.id} value={department!==""?department :selectedClass} >{department !=""?department:classData.faculty}</option>
                             );
                             })}
                         </select>

@@ -4,15 +4,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 // Create the interface for the state
 interface AddUserType {
     status: boolean
-    faculty: string | undefined
-    department: string | undefined
+    faculty: string
+    department: string
 }
 
 // Define the initial state
 const initialState: AddUserType = {
     status: false,
-    faculty: undefined,
-    department:undefined,
+    faculty: "",
+    department:"",
 }
 
 // Create the slice

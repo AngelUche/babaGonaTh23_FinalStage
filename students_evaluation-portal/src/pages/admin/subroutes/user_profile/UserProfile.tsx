@@ -1,11 +1,11 @@
 // jshint esversion:6
 import { UserProfileModal } from "../../../../components/admin/modals";
-import { useSelector } from "react-redux";
-import { RootState} from "../../../../store/admin";
+// import { useSelector } from "react-redux";
+// import { RootState} from "../../../../store/admin";
 
 function UserProfilePage() {
     // Render the Profile Modal prompt or main profile page
-    const { status: EmptyProfileStatus, id: UserId} = useSelector((store: RootState) => store.userProfile);
+    // const { status: EmptyProfileStatus, id: UserId} = useSelector((store: RootState) => store.userProfile);
 
     return (
         <div className=" bg-signUpBgImg pt-8 bg-cover bg-no-repeat bg-center">

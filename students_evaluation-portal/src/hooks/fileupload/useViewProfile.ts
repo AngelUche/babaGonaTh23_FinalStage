@@ -1,27 +1,12 @@
 import { UserProfileInterface } from "../../data/AddUserFormInterface";
-import { collection, doc, getDoc } from "firebase/firestore";
+import {  doc, getDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { fireStoreTxtData } from "../../firebase/firebaseStorage";
+import { initialUser } from "../../data/AddUserFormInterface";
 
 interface useViewProfileProps {
   id: string | undefined;
 }
-
-const initialUser: UserProfileInterface = {
-  age: undefined,
-  docId: "",
-  studentId: "",
-  firstName: "",
-  lastName: "",
-  otherName: "",
-  address: "",
-  phoneNumber: "",
-  email: "",
-  gender: "",
-  image: "",
-  faculty: "",
-  imageURL: ""
-};
 
 export const useViewProfile = ({ id }: useViewProfileProps) => {
   const [currentUser, setCurrentUser] = useState<UserProfileInterface>(initialUser);

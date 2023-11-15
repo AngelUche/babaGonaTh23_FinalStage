@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux"; // Import useDispatch from react-redux
 import { setUserDetails } from "../../features/admin/userAuth";
 import { useState } from "react";
+import { useFetchDatabase } from "../firebase/useFetchDatabase";
 
 export function useUpdateUser() {
   const provider = new GoogleAuthProvider();
@@ -11,6 +12,7 @@ export function useUpdateUser() {
   const dispatch = useDispatch(); // Get the dispatch function
   // const { user } = useAppSelector((state) => state.userAuth);
   const [isSIWGoogleLoading, setIsSIWGoogleLoading] = useState(false);
+  const {studentData}=useFetchDatabase()
 
   async function signInWithGoogleAuth() {
     try {
@@ -24,6 +26,7 @@ export function useUpdateUser() {
           displayName: userData.displayName,
           photoURL: userData.photoURL,
           email: userData.email,
+          studentData:studentData
         })
       );
 

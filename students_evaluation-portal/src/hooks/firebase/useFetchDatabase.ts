@@ -3,6 +3,7 @@ import { fireStoreTxtData } from "../../firebase/firebaseStorage";
 import { UserProfileInterface } from "../../data/AddUserFormInterface";
 import { useEffect, useState } from "react";
 
+
 export const useFetchDatabase = () => {
   const [studentData, setStudentData] = useState<UserProfileInterface[]>([]);
   const [isLoading, setIsLaoding] =useState(false)
@@ -17,10 +18,39 @@ export const useFetchDatabase = () => {
         setIsLaoding(true)
         const unsubscribe = onSnapshot(dataValue, (snapshot) => {
           snapshot.docs.forEach((doc) => {
+            // get the user details and assign them to the user data
             const userData: UserProfileInterface = {
               docId: doc.id,
-              ...doc.data(),
-            };
+              age:doc.data().age,
+            
+              lastName: 'Orjii',
+            
+              gender: 'Female',
+            
+              image: doc.data().image,
+            
+                
+              faculty: doc.data().faculty,
+            
+              phoneNumber: doc.data().phoneNumber,
+            
+              studentId:doc.data().studentId,
+            
+              address: doc.data().address,
+            
+              firstName: doc.data().firstName,
+            
+              otherName:doc.data().otherName,
+            
+              email: doc.data().email,
+            
+              department: doc.data().department,
+            
+              isBlackListed: true,
+              // docId: doc.id,
+              // ...doc.data(),
+            }
+
 
             allData.push(userData);
           });

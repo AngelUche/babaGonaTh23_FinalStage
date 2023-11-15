@@ -28,7 +28,7 @@ function AsideNavigation() {
     function handleCloseAllModalsClick() {
         dispatch(toggleShowUserPreview({ status: false,  }));
         dispatch(toggleShowUserProfile({ status: true, id: undefined }));
-        dispatch(toggleAddUserPromptStatus({ status: true, type: undefined }));
+        dispatch(toggleAddUserPromptStatus({ status: true,faculty: "",department:"",}));
     }
 
 
@@ -68,7 +68,7 @@ function AsideNavigation() {
                     </NavLink>
                 
                     {signInedWIth &&
-                    <NavLink to="passwordreset"
+                    <NavLink to="resetpassword"
                     className={({ isActive }) => `p-4 pl-5 text-white flex justify-start items-center gap-5 hover:border-l-4 ${isActive ? "bg-sideNavbg px-5 border-l-4" : undefined}`}>
                         <KeySVG size={25} />
                         <span className="text-xl">Reset Password</span>

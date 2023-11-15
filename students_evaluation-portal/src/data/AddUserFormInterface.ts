@@ -12,6 +12,9 @@ export interface UserProfileInterface {
   email?: string | undefined;
   docId: string;
   gender: string;
+  department: string;
+  isBlackListed:boolean
+
   // imageURL: any | null;
 }
 
@@ -29,6 +32,8 @@ export const initialUser: UserProfileInterface = {
   gender: "",
   image: "",
   faculty: "",
+  department:"",
+  isBlackListed:false
   // imageURL:""
 
 };

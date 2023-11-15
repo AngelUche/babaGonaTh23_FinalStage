@@ -12,8 +12,16 @@ import { useAppSelector } from "../../../hooks/redux";
 import { UserProfileInterface } from "../../../data/AddUserFormInterface";
 import { BiExport} from 'react-icons/bi'
 import { ExportUserDetailModal } from "../../../components/admin/modals/userpreview/ExportUserDetailModal";
+import { FacultySizeChart } from "../../../components/admin/dashboard/useroverview/FacultySizeChart";
+import { useFetchDatabase } from "../../../hooks/firebase/useFetchDatabase";
+import { getDepartmentCount, countFaculty } from "../../../utils/getDepartMentCount";
+import { DepartMentSizeCart } from "../../../components/admin/dashboard/useroverview/DepartMentSizeCart";
 
 const regex = /^[^@]+/
+
+
+// type FacultyCount = { [key: string]: number };
+
 
 
 // const resetUserTable = { student: false, staff: false, teacher: false }
@@ -25,13 +33,17 @@ function HomeView({handleItemClick}:homeViewProps) {
     const {displayName} = useAppSelector((state)=>state.userAuth)
     const [userEmail, setUserEmail] = useState<string | null>("")
     const [openExport, setOpenExport] = useState<boolean>(false)
+    const { studentData, } = useFetchDatabase()
 
+    const facultyCountArray = countFaculty(studentData);
+    const departmentCounts = getDepartmentCount(studentData);
     
 
     
+    
+
     useEffect(()=>{
         const listen =onAuthStateChanged(auth,(user)=>{
-            // console.log(user);
             if(user?.providerData[0].providerId==="password"){
                 setUserEmail(user.email)
             }   
@@ -50,10 +62,10 @@ function HomeView({handleItemClick}:homeViewProps) {
 
     return (
         <>
-            <div className="px-9 py-7  ">
+            <div className="px-9 py-7 ">
 
                 {/* Dashboard Title */}
-                <div className="flex justify-between items-start gap-x-5 h-[60px]">
+                <div className="flex justify-between items-start gap-x-5 h-[60px] ">
                     <div className="basis-[200px]">
                         <div>
                             <h2 className="text-[#474646]">Welcome Back</h2>
@@ -80,15 +92,16 @@ function HomeView({handleItemClick}:homeViewProps) {
                         <div>
                             <h1 className="font-bold text-xl">Dashboard</h1>
                             <div className="w-full flex flex-nowrap mb-3 py-3 gap-x-5 overflow-x-auto">
+                                {/* number of students */}
                                 <div className="shrink-0 border-[1px] border-[#f8f6f6] cursor-pointer hover:shadow-md">
-                                    <UserOverview title="Students" count={studentCount} avatar={StudentSVG} />
+                                    <UserOverview title="Number of Students" count={studentCount} avatar={StudentSVG} />
                                 </div>
+                           
                    
-                               
                             </div>
                         </div>
                         {/* Table containig database design */}
-                        <div className="my-9">
+                        <div className="mt-9 mb-20">
                             <div className="bg-[white] flex gap-x-5 shadow max-w-[800px]">
                                 <div className={`p-3 cursor-pointer hover:bg-[#f0f0fa] border-b-2 border-b-blue-500 bg-[#f0f0fa]`}>Student</div>
                                 <div className={`p-3 cursor-pointer hover:bg-[#f0f0fa] `}  onClick={()=>setOpenExport(true)}><BiExport size={30}/></div>
@@ -98,6 +111,18 @@ function HomeView({handleItemClick}:homeViewProps) {
                         </div>
                     </div>
                 </div>
+                {studentData.length >0 &&
+                <div className="flex flex-col gap-y-7 mb-5">
+                    <div>
+                        <h1 className="text-center mb-2 font-bold font-sans">Top 7 Faculties</h1>
+                        <FacultySizeChart data={facultyCountArray}/>
+                    </div>
+                    <div>
+                        <h1 className="text-center mb-2 font-bold font-sans">Popular Departments</h1>
+                        <DepartMentSizeCart data={departmentCounts}/>
+                    </div>
+                </div>
+                }
             </div>
             {openExport &&<ExportUserDetailModal onClose={()=>setOpenExport(false)}/>}
         </>

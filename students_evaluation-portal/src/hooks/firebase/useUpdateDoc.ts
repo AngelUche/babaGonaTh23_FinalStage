@@ -12,18 +12,18 @@ export function useUpdateDoc(){
     const [temporaryUser, setTemporaryUser] = useState<UserProfileInterface |undefined>();
     const {id} =useParams()
     const {currentUser, } =useViewProfile({id})
-  const [imageURL, setImageURL] = useState<any | null>("")   
+    const [imageURL, setImageURL] = useState<any | null>("")   
 
 
 
 
-    // Selected Gender
+    // boolan to reder loading 
     const [updateDocLoading, setUpdateDocLoading] =useState<boolean>(false)
 
+    // to open the pin for for admin to put in their pin
     const [isOpenPINForm, setIsOpenPINForm]=useState<boolean>(false)
 
 
-    // Selected class if user a student
     // to edit userDetail
     const [editProfileStatus, setEditProfileStatus] = useState<boolean>(false);
 
@@ -50,12 +50,14 @@ export function useUpdateDoc(){
           // getting the image url from the firebase server
           img = await getDownloadURL(result.ref)
         }
+        console.log(temporaryUser.isBlackListed);
         
         
         const dataToUpdate = {
           age: temporaryUser.age ,
           email: temporaryUser.email,
           faculty: temporaryUser.faculty ||currentUser.faculty,
+          department: temporaryUser.department ||currentUser.department,
           firstName: temporaryUser.firstName ,
           gender: temporaryUser.gender ||currentUser.gender,
           lastName: temporaryUser.lastName,
@@ -63,7 +65,8 @@ export function useUpdateDoc(){
           phoneNumber: temporaryUser.phoneNumber,
           studentId: temporaryUser.studentId ,
           address:temporaryUser.address,
-          image:temporaryUser.image ||img
+          image:temporaryUser.image ||img,
+          isBlackListed:temporaryUser.isBlackListed  ||currentUser.isBlackListed
         };
 
         if (temporaryUser.address) {

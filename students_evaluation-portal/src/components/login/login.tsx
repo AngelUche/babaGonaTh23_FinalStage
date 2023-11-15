@@ -2,17 +2,13 @@
 import { BsFillPersonFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useState} from "react";
-import { useAppDispatch, } from "../../hooks";
 import { KeySVG } from "../../assets/admin";
-    // navigate to ome after setting the user details 
 import { useUpdateUser } from "../../hooks/redux/useUpdateUser";
+
 import { useSignInWithEmailAndPassword } from "../../hooks";
 
-// }
-const Login = () => {
 
-  
-    const dispatch = useAppDispatch();
+const Login = () => {
 
   // DEFINENING HOOKS TO HANDLE THE INPUT
   const [PersonsLoggedin, setPersonsLoggedin] = useState({

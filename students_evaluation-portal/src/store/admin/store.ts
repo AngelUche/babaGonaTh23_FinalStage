@@ -11,6 +11,7 @@ export const store = configureStore({
         userProfile: UserProfileReducer,
         addUser: AddUserReducer,
         userAuth: AuthSliceReducer,
+        
     },
 })
 

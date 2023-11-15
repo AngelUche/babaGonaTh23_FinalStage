@@ -4,6 +4,7 @@ import { UserProfileInterface, initialUser } from "../../data/AddUserFormInterfa
 import { uid } from 'uid';
 import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
+import { useAppSelector } from "../redux";
 
 
 
@@ -14,6 +15,7 @@ export function useAdduserDetails(){
   // const [imageUpload, setImageUpload] = useState<File>();
   const [imageURL, setImageURL] = useState<any | null>("")   
   const [currentUser, setCurrentUser] = useState({} as UserProfileInterface);
+  const {faculty, department} = useAppSelector((state)=>state.addUser)
 
   // Selected class if user a student
   const [selectedClass, setSelectedClass] = useState("");
@@ -29,7 +31,8 @@ export function useAdduserDetails(){
             ...currentUser,
             gender: selectedGender,
             Image:imageURL,
-            // age:currentUser.age
+            department:department,
+            faculty:faculty,
             id:uid(),
         };
     });
@@ -50,12 +53,15 @@ export function useAdduserDetails(){
 
         // setting the data base collection 
         const DataValue =collection(fireStoreTxtData, "user Data")
+        const Faculty=selectedClass?selectedClass:faculty
+        const Dpt=selectedClass?selectedClass:department
         
         await addDoc(DataValue, 
             {firstName:currentUser.firstName, lastName:currentUser.lastName, 
-                otherName:currentUser.otherName, faculty:selectedClass,studentId:uid(),
+                otherName:currentUser.otherName, faculty:Faculty,department:Dpt,studentId:uid(),
                 address:currentUser.address, email:currentUser.email, gender:selectedGender,
                 phoneNumber:currentUser.phoneNumber, image:img,age:Number(currentUser.age),
+                isBlackListed:false
             })
        
             alert("data added succesfully")

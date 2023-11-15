@@ -18,7 +18,6 @@ interface userPreviewProps{
 }
 function UserPreviewModal({selectedItem, onClose}:userPreviewProps) {
 
-
     return (
         <div className="w-[350px] bg-white rounded-[10px] overflow-hidden shadow-xl" onClick={(e) => e.stopPropagation()}>
             {/* Preview wrapped */}

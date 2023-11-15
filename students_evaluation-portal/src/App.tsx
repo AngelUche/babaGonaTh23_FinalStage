@@ -1,18 +1,40 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes,useNavigate } from "react-router-dom";
 import { LandingPage } from "./components/login/LandingPage";
 import { Login, SignUp } from "./components";
 import { AdminLayout ,RequireAuth} from "./layouts";
 
-import { UserProfileView } from "./views/admin";
-
+import { UserProfileView , AddUserView} from "./views/admin";
+import { auth } from "./firebase/firebaseAuth";
+import { useEffect } from "react";
 import { Home, UserProfilePage,  PasswordReset, AddUserPage } from "./pages/admin/subroutes/";
+import {  onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
 import {
   // AdminPage,
   ErrorPage,EditProfilePage
 } from "./pages";
 
 function App() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+
+    // Set persistence to 'local' to enable session persistence
+    setPersistence(auth, browserLocalPersistence);
+
+    // Listen for changes in the user's login state
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        // Redirect to login page if the user is not authenticated
+        navigate("/login");
+      }
+    });
+
+    // Clean up the listener when the component unmounts
+    return () => unsubscribe();
+  }, [navigate]);
+
+
   return (
 
     <Routes>
@@ -30,6 +52,7 @@ function App() {
           <Route path="userprofile" element={<UserProfilePage />} />
           <Route path="userprofile/:id" element={<UserProfileView />} />
           <Route path="adduser" element={<AddUserPage />} />
+          <Route path="adduser/view" element={<AddUserView />} />
           <Route path="resetpassword" element={<PasswordReset />} />
           <Route path="setting" element={<EditProfilePage />} />
         </Route>

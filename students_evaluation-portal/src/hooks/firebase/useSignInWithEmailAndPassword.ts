@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from "../redux";
 import { setUserDetails } from "../../features/admin/userAuth";
+import { useFetchDatabase } from "./useFetchDatabase";
 interface firebaseSignUp{
   email: string;
   password:string
@@ -22,6 +23,8 @@ export function useSignInWithEmailAndPassword(){
  const [isLoading, setIsLoading] = useState<boolean>(false)
  const navigate = useNavigate();
  const dispatch =useAppDispatch()
+ const {studentData}=useFetchDatabase()
+
 
 
 
@@ -43,6 +46,7 @@ export function useSignInWithEmailAndPassword(){
           displayName: data.user.displayName,
           photoURL: data.user.photoURL,
           email: data.user.email,
+          studentData:studentData
         })
       );
       navigate('/home');        

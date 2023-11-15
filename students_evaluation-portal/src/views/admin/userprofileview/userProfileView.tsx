@@ -1,6 +1,4 @@
-// jshint esversion:6
-// import {  useState } from "react";
-// import { retrieveUserData } from "../../../utils/admin";
+
 import { EditSVG, CancelFillSVG } from "../../../assets/admin";;
 import { FormHeader, FormInput } from "../../../components/admin/userprofile";
 import { classData } from "../../../data/studentData";
@@ -12,6 +10,8 @@ import { Modal } from "../../../components/admin/modals/Modal";
 import { AdminPin } from "../../../components/admin/modals/resetpassword/AdminPin";
 import { useUpdateDoc } from "../../../hooks/firebase/useUpdateDoc";
 import { CustomWebcam } from "../adduserview/CustomeWebCam";
+import { getDepartmentsForFaculty } from "../../../utils/getUserDepartment";
+import { DepartmentInterface } from "../../../data/studentData";
 import { useState } from "react";
 
 
@@ -25,7 +25,7 @@ function UserProfileView() {
 
     const {temporaryUser,updateUserData, setTemporaryUser, updateDocLoading,isOpenPINForm, setIsOpenPINForm,editProfileStatus, setEditProfileStatus,imageURL, setImageURL} =useUpdateDoc()
     const [isWebcamOpen, setIsWebcamOpen] = useState<boolean>(false);
-
+    const [facultId, setFacultyId] = useState<DepartmentInterface[]>([])
     
     
     function setProfileImage() {
@@ -46,11 +46,8 @@ function UserProfileView() {
 
     // User saves Changes
      function submitEditedProfile() {
-        // Set the Edit profile to hold latest user changes
         setTemporaryUser({ ...currentUser });
-
              updateUserData()
-        // Clear Edit menu
     }
 
     return (
@@ -83,7 +80,7 @@ function UserProfileView() {
                     <div className="py-1 flex flex-col gap-y-2 max-h-[51vh] overflow-y-auto">
 
                         {/* Name Section */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-3">
 
                             {/* FirstName */}
                             <FormInput id="firstName" type="text" label="First name" editProfileStatus={editProfileStatus} value={currentUser.firstName} onChange={(e) => {
@@ -112,7 +109,7 @@ function UserProfileView() {
                         </div>
 
                         {/* Email and phone NUmber section*/}
-                        <div className="flex flex-col gap-y-2">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-2">
                                     <FormInput id="email" type="email" label="Email" editProfileStatus={editProfileStatus} value={currentUser.email?.toLowerCase()} onChange={(e) => {
                                         setCurrentUser((currentUser:UserProfileInterface) => {
                                             return { ...currentUser, email: e.target.value }
@@ -125,6 +122,25 @@ function UserProfileView() {
                                     return { ...currentUser, phoneNumber: e.target.value }
                                 })
                             }} />
+                           
+                            <div className="flex flex-col justify-end basis-full">
+                                <label className="text-sm font-bold text-gray-700" htmlFor="gender">Black List</label>
+                                <select id="gender" 
+                                className={`p-[10px] text-gray-700 text-[14px] rounded-sm ${editProfileStatus ? "border-[1px] border-gray-300 bg-editFormFieldBg focus:border-blue-500 outline-none" : "bg-formFieldBg"} `} 
+                                disabled={!editProfileStatus} value={currentUser.isBlackListed.toString()} 
+
+                                
+                                onChange={(e) => {
+                                    setCurrentUser((currentUser: UserProfileInterface) => {
+                                        return { ...currentUser, isBlackListed: JSON.parse(e.target.value) }
+                                    })
+                                }}
+                                >
+                                    {/* <option value="" disabled>Select</option> */}
+                                    <option value={"true"}>true</option>
+                                    <option value={"false"}>false</option>
+                                </select>
+                            </div>
 
                         </div>
 
@@ -160,33 +176,91 @@ function UserProfileView() {
 
                             {/* Designation */}
                             {/* {currentUser?.faculty && ( */}
+                            {facultId.length===0 ?
                                 <div className="flex flex-col basis-full">
-                                    <label className="text-sm font-bold text-gray-700" htmlFor="designation">Designation</label>
+                                    <label className="text-sm font-bold text-gray-700" htmlFor="designation">Faculty</label>
                                     <select
                                         className={`p-[10px] text-gray-700 text-[14px] rounded-sm ${editProfileStatus ? "border-[1px] border-gray-300 bg-editFormFieldBg focus:border-blue-500 outline-none" : "bg-formFieldBg"} `}
-                                        value={currentUser.faculty}
+                                        value={temporaryUser?.faculty}
+                                        disabled
+                                    >
+                                        <option>
+                                            { currentUser.faculty}
+                                        </option>
+                                          
+                                    </select>
+                                </div>:
+                                  <div className="flex flex-col basis-full">
+                                  <label className="text-sm font-bold text-gray-700" htmlFor="designation">Faculty</label>
+                                  <select
+                                      className={`p-[10px] text-gray-700 text-[14px] rounded-sm ${editProfileStatus ? "border-[1px] border-gray-300 bg-editFormFieldBg focus:border-blue-500 outline-none" : "bg-formFieldBg"} `}
+                                      value={temporaryUser?.faculty}
+                                      disabled={!editProfileStatus} 
+                                
+                                  onChange={(e) => {
+                                      setCurrentUser((currentUser:UserProfileInterface) => {
+                                          return { ...currentUser, faculty: e.target.value }
+                                      })
+                                  }} 
+                                  >
+                                      {
+                                          classData.map((data) => {
+                                              return (
+                                                  <option key={data.id} value={data.faculty} onClick={()=>{
+                                                      const depts=getDepartmentsForFaculty(data.id)
+                                                      setFacultyId(depts)
+                                                  }}>
+                                                      { data.faculty}
+                                                  </option>
+                                              );
+                                          })
+                                      }
+                                  </select>
+                              </div>
+                                }
+                                    
+                                    {/* department */}
+                                
+
+                                    {facultId.length===0 ?
+                                    <div className="flex flex-col basis-full">
+                                    <label className="text-sm font-bold text-gray-700" htmlFor="designation">Department</label>
+                                    <select
+                                        className={`p-[10px] text-gray-700 text-[14px] rounded-sm ${editProfileStatus ? "border-[1px] border-gray-300 bg-editFormFieldBg focus:border-blue-500 outline-none" : "bg-formFieldBg"} `}
+                                        value={currentUser.department}
+                                        disabled 
+                                    >
+                                        <option>
+                                            {currentUser.department}
+                                        </option>
+                                              
+                                    </select>
+                                </div>:
+                                <div className="flex flex-col basis-full">
+                                    <label className="text-sm font-bold text-gray-700" htmlFor="designation">Department</label>
+                                    <select
+                                        className={`p-[10px] text-gray-700 text-[14px] rounded-sm ${editProfileStatus ? "border-[1px] border-gray-300 bg-editFormFieldBg focus:border-blue-500 outline-none" : "bg-formFieldBg"} `}
+                                        value={currentUser.department}
                                         disabled={!editProfileStatus} 
-                                    //     onChange={(e) => {
-                                    //         setSelectedClass(e.target.value)
-                                    //     }}
-                                    // >
                                     onChange={(e) => {
                                         setCurrentUser((currentUser:UserProfileInterface) => {
-                                            return { ...currentUser, faculty: e.target.value }
+                                            return { ...currentUser, department: e.target.value }
                                         })
                                     }} 
                                     >
                                         {
-                                            classData.map((classData) => {
+                                            facultId.map((dptData) => {
                                                 return (
-                                                    <option key={classData.id} value={classData.faculty}>
-                                                        { classData.faculty}
+                                                    <option key={dptData.id} >
+                                                        {dptData.dpt}
                                                     </option>
                                                 );
                                             })
                                         }
                                     </select>
                                 </div>
+                                    }
+
                             {/* )} */}
                         </div>
                     </div>

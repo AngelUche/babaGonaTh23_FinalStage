@@ -9,6 +9,8 @@ import { toggleAddUserPromptStatus } from "../../../../features/admin/adduserSli
 import { useAppDispatch } from "../../../../hooks/redux";
 import { getDepartmentsForFaculty } from "../../../../utils/getUserDepartment";
 import {  } from "../../../../data/studentData";
+import { Navigate, useLocation , useNavigate} from "react-router-dom";
+
 
 interface ChosenClasses{
     faculty:string,
@@ -21,7 +23,7 @@ function AddUserModal() {
     const [isOpenPINForm, setIsOpenPINForm]=useState<boolean>(false)
     const [facultId, setFacultyId] = useState<DepartmentInterface[]>([])
     
-
+const NavitgateTo= useNavigate()
     
 
     const dispatch = useAppDispatch();
@@ -38,8 +40,9 @@ function AddUserModal() {
         
     }
     
-    function OpeneditFoem(){
+    function OpeneditForm(){
         dispatch(toggleAddUserPromptStatus({ status: false, faculty: selectedPosition.faculty, department:selectedPosition.department }))
+        NavitgateTo('/adduser/view')
     }
 
     return (
@@ -89,7 +92,8 @@ function AddUserModal() {
 
                         </select>
                     </div>
-                      {facultId.length !=0 && <div>
+                      {/* {facultId.length !=0 &&  */}
+                      <div>
                        <select
                             className="w-full p-3 rounded outline-none text-gray-700 focus:border-2 focus:border-[#0bdf8d]"
                             aria-label="Select a list of class names to get available students"
@@ -115,13 +119,13 @@ function AddUserModal() {
                             }
                         </select>
                       </div>
-                        }
+                        {/* } */}
                 </div>
                 <button className="w-full rounded uppercase py-3 bg-[blue] hover:bg-[#0202c5] hover:shadow-xl text-white font-mono font-bold" onClick={handleProfileSubmit}
                  disabled={selectedPosition .department== ""}>{"Add New User"}</button>
             </div>
            
-        {isOpenPINForm && <Modal closeModal={()=>setIsOpenPINForm(false)}> <AdminPin ProcceToADD={OpeneditFoem} title="Proceed"/></Modal>}
+        {isOpenPINForm && <Modal closeModal={()=>setIsOpenPINForm(false)}> <AdminPin ProcceToADD={OpeneditForm} title="Proceed"/></Modal>}
 
         </>
     );

@@ -1,38 +1,34 @@
 import "./App.css";
-import { Route, Routes,useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { LandingPage } from "./components/login/LandingPage";
 import { Login, SignUp } from "./components";
 import { AdminLayout ,RequireAuth} from "./layouts";
 
 import { UserProfileView , AddUserView} from "./views/admin";
-import { auth } from "./firebase/firebaseAuth";
-import { useEffect } from "react";
+// import { auth } from "./firebase/firebaseAuth";
+// import { useEffect } from "react";
 import { Home, UserProfilePage,  PasswordReset, AddUserPage } from "./pages/admin/subroutes/";
-import {  onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
-import {
-  // AdminPage,
-  ErrorPage,EditProfilePage
-} from "./pages";
+// import {  onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
+import {ErrorPage,EditProfilePage} from "./pages";
 
 function App() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    // Set persistence to 'local' to enable session persistence
-    setPersistence(auth, browserLocalPersistence);
+  //   Set persistence to 'local' to enable session persistence
+  //   setPersistence(auth, browserLocalPersistence);
 
-    // Listen for changes in the user's login state
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        // Redirect to login page if the user is not authenticated
-        navigate("/login");
-      }
-    });
+  //   Listen for changes in the user's login state
+  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //     if (!user) {
+  //       navigate("/login");
+  //     }
+  //   });
 
-    // Clean up the listener when the component unmounts
-    return () => unsubscribe();
-  }, [navigate]);
+  //   Clean up the listener when the component unmounts
+  //   return () => unsubscribe();
+  // }, [navigate]);
 
 
   return (

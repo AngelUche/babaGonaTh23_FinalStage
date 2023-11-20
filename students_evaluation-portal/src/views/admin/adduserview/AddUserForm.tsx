@@ -201,7 +201,6 @@ const {faculty,department} = useAppSelector((state)=>state.addUser)
                         <select
                             className="w-full p-[10px] text-[14px] rounded-sm outline-none text-gray-700 bg-editFormFieldBg border-[1px] border-gray-300 focus:border-blue-500"
                             aria-label="Select a list of class names to get available students"
-                            // value={selectedClass}
                             value={department!==""?department :selectedClass}
                             required
                             disabled={faculty!=""}
@@ -209,7 +208,10 @@ const {faculty,department} = useAppSelector((state)=>state.addUser)
                             <option disabled>Select Faculty</option>
                             {classData.map((classData) => {
                             return (
-                            <option key={classData.id} value={department!==""?department :selectedClass} >{faculty !=""?faculty:classData.faculty}</option>
+                            <option key={classData.id} 
+                            value={department!==""?department :selectedClass} 
+                            >
+                                {faculty !=""?faculty:classData.faculty}</option>
                             );
                             })}
                         </select>
@@ -227,6 +229,8 @@ const {faculty,department} = useAppSelector((state)=>state.addUser)
                                 // check to see if the department field is empty 
                                 if(department===""){
                                     setSelectedClass(e.target.value);
+                                    console.log(e.target.value);
+                                    
                                 }else{
 
                                     setSelectedClass(department)
@@ -235,7 +239,9 @@ const {faculty,department} = useAppSelector((state)=>state.addUser)
                             <option disabled>Select Department</option>
                             {classData.map((classData) => {
                             return (
-                            <option key={classData.id} value={department!==""?department :selectedClass} >{department !=""?department:classData.faculty}</option>
+                            <option key={classData.id} 
+                            // value={department!==""?department :selectedClass}
+                             >{department !=""?department:classData.faculty}</option>
                             );
                             })}
                         </select>

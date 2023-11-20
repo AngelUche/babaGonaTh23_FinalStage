@@ -62,7 +62,7 @@ function HomeView({handleItemClick}:homeViewProps) {
 
     return (
         <>
-            <div className="px-9 py-7 ">
+            <div className="px-4 py-7 ">
 
                 {/* Dashboard Title */}
                 <div className="flex justify-between items-start gap-x-5 h-[60px] ">
@@ -101,8 +101,8 @@ function HomeView({handleItemClick}:homeViewProps) {
                             </div>
                         </div>
                         {/* Table containig database design */}
-                        <div className="mt-9 mb-20">
-                            <div className="bg-[white] flex gap-x-5 shadow max-w-[800px]">
+                        <div className="mt-9 mb-20 ">
+                            <div className="bg-[white] flex justify-between shadow-md border-[1px] border-[#f0eeee]  w-[200px] max-w-[250px]">
                                 <div className={`p-3 cursor-pointer hover:bg-[#f0f0fa] border-b-2 border-b-blue-500 bg-[#f0f0fa]`}>Student</div>
                                 <div className={`p-3 cursor-pointer hover:bg-[#f0f0fa] `}  onClick={()=>setOpenExport(true)}><BiExport size={30}/></div>
                             </div>

@@ -10,7 +10,7 @@ const ErrorPage = ({ NavigateToPage }: any) => {
     >
       <h1>Error 404</h1>
       <p>Back Home</p>
-      <Link to="/hone">
+      <Link to="/">
         <AiFillHome size={50} color="#f9c9e9" />
       </Link>
     </div>

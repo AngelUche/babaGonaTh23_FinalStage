@@ -26,6 +26,7 @@ function ResetPasswordModal() {
     // loadng state
     const [loading, setLoading]= useState(false)
     const navigate = useNavigate();
+    const [passwordVissible, setPasswordVissible]=useState<boolean>(false);
 
 
     function handleFormClose() {
@@ -85,7 +86,7 @@ function ResetPasswordModal() {
                     <div className="flex flex-col gap-y-1">
                         <label className="font-mono text-sm font-bold text-gray-500" htmlFor="currentPassword">Current password</label>
                         <input
-                            type="password"
+                            type={passwordVissible?"text":"password"}
                             id="currentPassword"
                             value={Password.currentPassword}
                             required
@@ -98,7 +99,8 @@ function ResetPasswordModal() {
                     <div className="flex flex-col gap-y-1">
                         <label className="font-mono text-sm font-bold text-gray-500" htmlFor="newPassword">New password</label>
                         <input
-                            type="password"
+                            type={passwordVissible?"text":"password"}
+
                             id="newPassword"
                             value={Password.newPassword}
                             required
@@ -109,13 +111,14 @@ function ResetPasswordModal() {
                     <div className="flex flex-col gap-y-1">
                         <label className="font-mono text-sm font-bold text-gray-500" htmlFor="confirmPassword">Confirm password</label>
                         <input
-                            type="password"
+                            type={passwordVissible?"text":"password"}
                             id="confirmPassword"
                             value={Password.confirmPassword}
                             required
                             onChange={(e) => setPassword((prevPassword) => ({...prevPassword,confirmPassword: e.target.value,}))}
                             className={"p-3 w-full outline-none selection:shadow-inner rounded-[4px] border-[1px] border-[#1e462a59]  focus-visible:shadow-md"} />
                     </div>
+                    <button type="button" className="p-2 py-2 rounded-[4px] self-start border-[1px] shadow-md border-[#d8d8d8] " onClick={()=>setPasswordVissible((prev=>!prev))}>See Passwod</button>
 
                     {/* Submit buttons */}
                     <div className="mt-[1rem]">

@@ -15,10 +15,11 @@ interface studentTableProps{
 }
 function StudentTable({searchQuery, handleItemClick}:studentTableProps) {
     const { studentData, isLoading} = useFetchDatabase()
+    
 
     const [currentPage, setCurrentPage] = useState<number>(1);
 
-    const recordsPerPage = 10;
+    const recordsPerPage = 15;
 
     const { records, totalPageLinks, firstIndex } = paginationData(studentData, currentPage, recordsPerPage);
 

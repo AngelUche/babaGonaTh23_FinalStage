@@ -46,9 +46,9 @@ export const useFetchDatabase = () => {
             
               department: doc.data().department,
             
-              isBlackListed: true,
+              isBlackListed: doc.data().isBlacklisted,
               // docId: doc.id,
-              // ...doc.data(),
+              ...doc.data(),
             }
 
 

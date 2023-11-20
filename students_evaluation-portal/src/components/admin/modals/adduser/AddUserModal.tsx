@@ -47,7 +47,7 @@ const NavitgateTo= useNavigate()
 
     return (
         <>
-            <div className="sm:w-[370px] w-max py-10 sm:px-10 px-5 bg-white rounded-[10px] overflow-hidden shadow-xl flex flex-col gap-y-6" onClick={(e) => {
+            <div className="sm:w-[370px] w-[350px] mt-20 sm:mt-0 wmax py-10 sm:px-10 px-5  bg-white rounded-[10px] overflow-hidden shadow-xl flex flex-col gap-y-6" onClick={(e) => {
                 // Prevent propagation of button click to avoid closing the modal when operating it
                 e.stopPropagation();
             }}>

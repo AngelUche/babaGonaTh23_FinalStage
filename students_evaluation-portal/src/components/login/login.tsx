@@ -111,8 +111,8 @@ const Login = () => {
               </div>
 
               <div className="w-full flex flex-col gap-4 sm:flex-row justify-between">
-              <button type="submit" className="py-[10px] sm:px-[70px] md:px-[100px] rounded-[6px] bg-amber-700 text-white capitalize">{isLoading?"loading":"login"}</button>
-                <Link to='/signUp' className=" py-[10px] sm:px-[70px] md:px-[100px] rounded-[6px] bg-amber-700 text-white capitalize flex justify-center">Sign Up</Link>
+              <button type="submit" className=" w-full h-[50px] rounded-[6px] items-center bg-amber-700 text-white capitalize">{isLoading?"loading":"login"}</button>
+                <Link to='/signUp' className="  w-full h-[50px] items-center rounded-[6px] bg-amber-700 text-white capitalize flex justify-center">Sign Up</Link>
 
               </div>
             </form>

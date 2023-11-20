@@ -43,16 +43,16 @@ function UserProfileView() {
     }
 
 
-
     // User saves Changes
      function submitEditedProfile() {
         setTemporaryUser({ ...currentUser });
              updateUserData()
     }
 
+    
     return (
         <div className=" bg-signUpBgImg pt-8 bg-cover bg-no-repeat bg-center">
-        <div className="h-full max-w-[900px] mx-auto px-6 py-[30px]">
+        <div className="h-full max-w-[900px] mx-auto sm:px-6  py-[30px]">
 
             {/* Form container */}
             <div className="relative shadow-md py-5 px-4 bg-[#fffcfc]">
@@ -74,7 +74,7 @@ function UserProfileView() {
 
                 {/* Form Header */}
                 <div className="flex flex-col gap-5">
-                    <FormHeader userId={currentUser.studentId} imageURL={imageURL} editProfileStatus={editProfileStatus} OpenWebCam={()=>setIsWebcamOpen(true)} userImage={currentUser.image} userFirstName={currentUser.firstName} userLastName={currentUser.lastName}  userSection={currentUser?.faculty} />
+                    <FormHeader userId={currentUser.studentId} imageURL={imageURL} editProfileStatus={editProfileStatus} OpenWebCam={()=>setIsWebcamOpen(true)} userImage={currentUser.image} userFirstName={currentUser.firstName} userOtherName={currentUser.otherName}  userLastName={currentUser.lastName}  userSection={currentUser?.faculty} />
 
                     {/* Form fields */}
                     <div className="py-1 flex flex-col gap-y-2 max-h-[51vh] overflow-y-auto">
@@ -124,7 +124,10 @@ function UserProfileView() {
                             }} />
                            
                             <div className="flex flex-col justify-end basis-full">
-                                <label className="text-sm font-bold text-gray-700" htmlFor="gender">Black List</label>
+                                <div className="flex gap-x-2">
+                                    <label className="text-sm font-bold text-gray-700" htmlFor="gender">Black List:</label>
+                                    <p className={`text-sm font-bold ${currentUser.isBlackListed?"text-red-500":"text-gray-700"} apitalize`} >{currentUser.isBlackListed.toString()}</p>
+                                </div>
                                 <select id="gender" 
                                 className={`p-[10px] text-gray-700 text-[14px] rounded-sm ${editProfileStatus ? "border-[1px] border-gray-300 bg-editFormFieldBg focus:border-blue-500 outline-none" : "bg-formFieldBg"} `} 
                                 disabled={!editProfileStatus} value={currentUser.isBlackListed.toString()} 
@@ -143,6 +146,7 @@ function UserProfileView() {
                             </div>
 
                         </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
 
                         {/* Address */}
                         <FormInput id="address" type="text" label="Address" editProfileStatus={editProfileStatus} value={currentUser.address}
@@ -152,6 +156,16 @@ function UserProfileView() {
                             })
                         }} 
                         />
+                         <FormInput id="address" type="text" label="Age" editProfileStatus={editProfileStatus} value={currentUser.age}
+                         onChange={(e) => {
+                            setCurrentUser((currentUser:UserProfileInterface) => {
+                                return { ...currentUser, age: e.target.value }
+                            })
+                        }} 
+                        />
+                                </div>
+
+
 
 
                         {/* Position, Gender, Class? */}
@@ -174,9 +188,9 @@ function UserProfileView() {
                                 </select>
                             </div>
 
-                            {/* Designation */}
+                            {/* Faculty */}
                             {/* {currentUser?.faculty && ( */}
-                            {facultId.length===0 ?
+                            {/* {facultId.length===0 ?
                                 <div className="flex flex-col basis-full">
                                     <label className="text-sm font-bold text-gray-700" htmlFor="designation">Faculty</label>
                                     <select
@@ -184,12 +198,10 @@ function UserProfileView() {
                                         value={temporaryUser?.faculty}
                                         disabled
                                     >
-                                        <option>
-                                            { currentUser.faculty}
-                                        </option>
+                                        <option>{ currentUser.faculty}</option>
                                           
                                     </select>
-                                </div>:
+                                </div>: */}
                                   <div className="flex flex-col basis-full">
                                   <label className="text-sm font-bold text-gray-700" htmlFor="designation">Faculty</label>
                                   <select
@@ -210,14 +222,14 @@ function UserProfileView() {
                                                       const depts=getDepartmentsForFaculty(data.id)
                                                       setFacultyId(depts)
                                                   }}>
-                                                      { data.faculty}
+                                                      {!editProfileStatus?currentUser.faculty: data.faculty}
                                                   </option>
                                               );
                                           })
                                       }
                                   </select>
                               </div>
-                                }
+                                {/* } */}
                                     
                                     {/* department */}
                                 
@@ -240,7 +252,7 @@ function UserProfileView() {
                                     <label className="text-sm font-bold text-gray-700" htmlFor="designation">Department</label>
                                     <select
                                         className={`p-[10px] text-gray-700 text-[14px] rounded-sm ${editProfileStatus ? "border-[1px] border-gray-300 bg-editFormFieldBg focus:border-blue-500 outline-none" : "bg-formFieldBg"} `}
-                                        value={currentUser.department}
+                                        // value={currentUser.department}
                                         disabled={!editProfileStatus} 
                                     onChange={(e) => {
                                         setCurrentUser((currentUser:UserProfileInterface) => {
@@ -251,7 +263,7 @@ function UserProfileView() {
                                         {
                                             facultId.map((dptData) => {
                                                 return (
-                                                    <option key={dptData.id} >
+                                                    <option key={dptData.id} value={dptData.dpt}>
                                                         {dptData.dpt}
                                                     </option>
                                                 );

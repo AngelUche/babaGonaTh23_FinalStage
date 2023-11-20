@@ -25,7 +25,7 @@ function AdminLayout() {
         <div onClick={()=>setNavOpen(false)}>
             {/* Admin Navigation - Visible across all screen sizes */}
             <nav
-                className="sticky top-0 w-full h-[60px] flex items-center justify-center px-4 py-2 md:px-6 md:py-2 bg-sideNavbg shadow-lg"
+                className="sticky top-0 w-full h-[60px] flex items-center justify-center px-4 z-20 py-2 md:px-6 md:py-2 bg-sideNavbg shadow-lg"
                 onClick={(e) => e.stopPropagation()}>
                 <div className="w-full flex justify-between items-center">
                     <h1 className="text-3xl text-white font-bold"> <NavLink to="/home">Virtuos</NavLink></h1>

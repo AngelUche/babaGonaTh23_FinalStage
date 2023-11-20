@@ -54,7 +54,7 @@ export function useUpdateDoc(){
         
         
         const dataToUpdate = {
-          age: temporaryUser.age ,
+          age: temporaryUser.age ||currentUser.age,
           email: temporaryUser.email,
           faculty: temporaryUser.faculty ||currentUser.faculty,
           department: temporaryUser.department ||currentUser.department,

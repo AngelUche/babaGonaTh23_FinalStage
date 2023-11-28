@@ -55,7 +55,7 @@ function UserProfileModal() {
           <select
             className="w-full p-3 rounded outline-none text-gray-700 focus:border-2 focus:border-[#0bdf8d]"
             aria-label="Select a list of members of a class to view profile"
-            required
+            required                                
             value={selectedMember}
             onChange={(event) => {
               setSlectedMember(event.target.value);

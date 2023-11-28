@@ -19,7 +19,7 @@ function AdminLayout() {
         setNavOpen(!navOpen);
     }
 
-
+  
 
     return (
         <div onClick={()=>setNavOpen(false)}>
@@ -30,7 +30,7 @@ function AdminLayout() {
                 <div className="w-full flex justify-between items-center">
                     <h1 className="text-3xl text-white font-bold"> <NavLink to="/home">Virtuos</NavLink></h1>
                     <div>
-                    <div className="hidden lg:block h-[50px] w-[50px] overflow-hidden rounded-full mr-12"><img src={photoURL? photoURL:imageProfile} className="w-full h-full" alt="" /></div>
+                    <div> <NavLink to="/setting"  className="hidden lg:block h-[50px] w-[50px] overflow-hidden rounded-full mr-12"><img src={photoURL? photoURL:imageProfile} className="w-full h-full" alt="" /></NavLink></div>
 
                     </div>
 

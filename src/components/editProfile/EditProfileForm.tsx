@@ -38,7 +38,6 @@ export const EditProfileForm = ({setUser,user,  }:AddUserViewProps) => {
           className={`p-2 text-gray-700 text-[14px] rounded-sm border-[1px] border-gray-300 bg-editFormFieldBg focus:border-blue-500 outline-none`}
           type="text"
           value={user.firstName}
-          required
           onChange={(e) => {
             setUser((currentUser: EditProfileInterface) => {
             return { ...currentUser, firstName: e.target.value };});}}/>
@@ -50,7 +49,7 @@ export const EditProfileForm = ({setUser,user,  }:AddUserViewProps) => {
           <input
             className={`p-2 text-gray-700 text-[14px] rounded-sm border-[1px] border-gray-300 bg-editFormFieldBg focus:border-blue-500 outline-none`}
             value={user?.otherName}
-            required
+
             onChange={(e) => {setUser((currentUser: EditProfileInterface) => {return { ...currentUser, otherName: e.target.value };});}}
           />
       </div>
@@ -67,7 +66,6 @@ export const EditProfileForm = ({setUser,user,  }:AddUserViewProps) => {
           className={`p-2 text-gray-700 text-[14px] rounded-sm border-[1px] border-gray-300 bg-editFormFieldBg focus:border-blue-500 outline-none`}
           type="text"
           value={user?.lastName}
-          required
           onChange={(e) => {setUser((currentUser: EditProfileInterface) => {return { ...currentUser, lastName: e.target.value };});}}
         />
       </div>
@@ -81,7 +79,6 @@ export const EditProfileForm = ({setUser,user,  }:AddUserViewProps) => {
             type="email"
             id="email"
             value={user.email}
-            required
             onChange={(e) => {setUser((currentUser: EditProfileInterface) => {return { ...currentUser, email: e.target.value };});}}
             />
         </div>

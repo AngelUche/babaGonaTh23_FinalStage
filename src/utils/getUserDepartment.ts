@@ -1,4 +1,4 @@
-import { classData, DepartMents } from '../data/studentData'; // Adjust the path to your data
+import { classData, DepartMents } from '../data/studentData'; 
 
 export function getDepartmentsForFaculty(facultyId:string) {
 

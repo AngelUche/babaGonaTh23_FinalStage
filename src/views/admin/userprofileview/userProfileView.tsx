@@ -216,8 +216,7 @@ function UserProfileView() {
                                           classData.map((data) => {
                                               return (
                                                   <option key={data.id} value={data.faculty} onClick={()=>{
-                                                      const depts=getDepartmentsForFaculty(data.id)
-                                                      setFacultyId(depts)
+                                                      setFacultyId(getDepartmentsForFaculty(data.id))
                                                   }}>
                                                       {!editProfileStatus?currentUser.faculty: data.faculty}
                                                   </option>

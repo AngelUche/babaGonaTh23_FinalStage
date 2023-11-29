@@ -3,6 +3,7 @@ import { useState } from "react";
 import { PersonvcardSVG } from "../../../../assets/admin";
 import { Link } from "react-router-dom";
 import { useFetchDatabase } from "../../../../hooks/firebase/useFetchDatabase";
+import { UserProfileInterface } from "../../../../data/AddUserFormInterface";
 
 function UserProfileModal() {
 
@@ -10,12 +11,15 @@ function UserProfileModal() {
   const { studentData} = useFetchDatabase()
 
   // Determine type of user to view profile
-  const [selectedPosition, setSelectedPosition] = useState("");
+  const [selectedID, setSelectedID] = useState<UserProfileInterface | null>(null);
 
+  // set the selected item the id
+  const handleItemClick = (item: UserProfileInterface) => {
+    setSelectedID(item);
+  };
   
   // Selected members regardless of position
   const [selectedMember, setSlectedMember] = useState("");
-  const [id, setId] = useState<string |undefined>("");
 
   return (
     <div
@@ -33,23 +37,7 @@ function UserProfileModal() {
 
       {/* user Input fields container */}
       <div className="flex flex-col gap-y-5">
-        <div>
-          {/* Select User Position field */}
-          <select
-            className="w-full p-3 rounded outline-none text-gray-700 focus:border-2 focus:border-[#0bdf8d]"
-            aria-label="Select a list of class names to get available students"
-            required
-            value={selectedPosition}
-            onChange={(event) => {
-              setSelectedPosition(event.target.value);
-              setSlectedMember("");
-            }}
-          >
-            {/* <option value="" disabled>Select User</option> */}
-            <option value="Student">Student</option>
-            {/* Add more options here if needed in the future */}
-          </select>
-        </div>
+      
 
         <div>
           <select
@@ -63,7 +51,7 @@ function UserProfileModal() {
             >
             <option value="" disabled>Select Member</option>
             {studentData.map((data) => (
-            <option key={data.studentId} value={data.studentId} onClick={() => setId(data.docId)}>
+            <option key={data.studentId} value={data.studentId} onClick={() => handleItemClick(data)}>
                 {data.firstName ? `${data.firstName} ${data.lastName}` : "No student Member yet"}
             </option>
             ))}
@@ -71,9 +59,8 @@ function UserProfileModal() {
         </div>
       </div>
       <Link
-        to={`/userprofile/${id}`} 
-        className="p-1 mt-3 flex items-center justify-center w-full rounded uppercase py-3 bg-[blue] hover:bg-[#0202c5] hover:shadow-xl text-white font-mono font-bold"
-      >
+        to={`/userprofile/${selectedID?.docId}`} 
+        className="p-1 mt-3 flex items-center justify-center w-full rounded uppercase py-3 bg-[blue] hover:bg-[#0202c5] hover:shadow-xl text-white font-mono font-bold">
         View full profile
       </Link>
     </div>

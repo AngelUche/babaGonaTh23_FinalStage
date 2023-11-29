@@ -34,10 +34,7 @@ function UserProfileView() {
           image: imageURL,
         }));
       }
-
-    // if (!currentUser) {
-    //     return null;
-    // };
+    
     if (isLoading){
         return <Loading title="Loading user Info ..."/>
     }
@@ -252,7 +249,7 @@ function UserProfileView() {
                                     <label className="text-sm font-bold text-gray-700" htmlFor="designation">Department</label>
                                     <select
                                         className={`p-[10px] text-gray-700 text-[14px] rounded-sm ${editProfileStatus ? "border-[1px] border-gray-300 bg-editFormFieldBg focus:border-blue-500 outline-none" : "bg-formFieldBg"} `}
-                                        // value={currentUser.department}
+                                        value={currentUser.department}
                                         disabled={!editProfileStatus} 
                                     onChange={(e) => {
                                         setCurrentUser((currentUser:UserProfileInterface) => {

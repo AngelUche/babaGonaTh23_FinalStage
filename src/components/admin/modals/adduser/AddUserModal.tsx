@@ -8,8 +8,7 @@ import { Modal } from "../Modal";
 import { toggleAddUserPromptStatus } from "../../../../features/admin/adduserSlice";
 import { useAppDispatch } from "../../../../hooks/redux";
 import { getDepartmentsForFaculty } from "../../../../utils/getUserDepartment";
-import {  } from "../../../../data/studentData";
-import { Navigate, useLocation , useNavigate} from "react-router-dom";
+import {  useNavigate} from "react-router-dom";
 
 
 interface ChosenClasses{
@@ -28,7 +27,7 @@ const NavitgateTo= useNavigate()
 
     const dispatch = useAppDispatch();
 
-    // Determine type of user to view profile
+    // Determine the user to view profile
     const [selectedPosition, setSelectedPosition] = useState<ChosenClasses>({
     faculty:"",
     department:"",
@@ -97,7 +96,7 @@ const NavitgateTo= useNavigate()
                        <select
                             className="w-full p-3 rounded outline-none text-gray-700 focus:border-2 focus:border-[#0bdf8d]"
                             aria-label="Select a list of class names to get available students"
-                            // value={selectedPosition}
+                            value={selectedPosition.department}
                             onChange={(event) => {
                                 setSelectedPosition((prevState) => ({
                                     ...prevState,
